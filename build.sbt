@@ -1,9 +1,8 @@
-
-name := "fp"
-
-version := "0.1"
-
-scalaVersion := "2.11.8"
+lazy val commonSettings = Seq(
+  organization := "com.github.SymphonyNo9",
+  version := "0.1.0",
+  scalaVersion := "2.11.8"
+)
 
 // add dependencies on standard Scala modules, in a way
 // supporting cross-version publishing
@@ -26,4 +25,24 @@ libraryDependencies := {
       libraryDependencies.value :+ "org.scala-lang" % "scala-swing" % scalaVersion.value
   }
 }
+
+lazy val root = (project in file("."))
+  .aggregate(fpis, core)
+  .dependsOn(core)
+  .settings(
+    commonSettings,
+    name := "fp"
+  )
+
+lazy val fpis = (project in file("fpis"))
+  .settings(
+    commonSettings
+    // other settings
+  )
+
+lazy val core = (project in file("core"))
+  .settings(
+    commonSettings
+    // other settings
+  )
 
