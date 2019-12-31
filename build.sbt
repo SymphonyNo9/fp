@@ -46,3 +46,9 @@ lazy val core = (project in file("core"))
     // other settings
   )
 
+lazy val catsPractice = (project in file("catsp"))
+  .settings(
+    commonSettings,
+    libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0"
+)
+
