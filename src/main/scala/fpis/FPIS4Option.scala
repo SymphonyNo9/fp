@@ -1,4 +1,4 @@
-package fpis
+package fpis.option
 
 //hide std library `Option` and `Either`, since we are writing our own in this chapter
 import scala.{Either => _, Option => _}
@@ -7,7 +7,7 @@ sealed trait Option[+A] {
   def map[B](f: A=>B): Option[B] =
     this match {
       case None => None
-      case Some(a: A) => Some(f(a))
+      case Some(a) => Some(f(a))
     }
 
   def getOrElse[B >: A](default: => B):B = this match {
@@ -17,7 +17,7 @@ sealed trait Option[+A] {
 
   def flatMap[B](f: A=>Option[B]): Option[B] = this match {
     case None => None
-    case Some(a: A) => f(a)
+    case Some(a) => f(a)
   }
   // 非匹配方式
 //  def flatMap[B](f: A => Option[B]): Option[B] =
