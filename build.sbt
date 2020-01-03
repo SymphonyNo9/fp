@@ -4,6 +4,7 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.8"
 )
 
+val commonDependencies = Seq()
 // add dependencies on standard Scala modules, in a way
 // supporting cross-version publishing
 // taken from: http://github.com/scala/scala-module-dependency-sample
@@ -27,7 +28,7 @@ libraryDependencies := {
 }
 
 lazy val root = (project in file("."))
-  .aggregate(fpis, core)
+  .aggregate(fpis, core, catsp)
   .dependsOn(core)
   .settings(
     commonSettings,
@@ -46,9 +47,8 @@ lazy val core = (project in file("core"))
     // other settings
   )
 
-lazy val catsPractice = (project in file("catsp"))
-  .settings(
-    commonSettings,
-    libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0"
-)
+lazy val catsp = (project in file("catsp"))
+  .settings(commonSettings).
+  dependsOn(core).
+  settings(libraryDependencies ++= Seq("org.typelevel" %% "cats-core" % "2.0.0"))
 
